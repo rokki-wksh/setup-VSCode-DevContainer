@@ -130,3 +130,47 @@ Rebuild した結果、それまで DEV CONTAINER 側にインストール表示
 ![2024-05-02_143555_](https://github.com/rokki-wksh/setup-VSCode-DevContainer/assets/78457029/018c425e-8e44-480a-a61b-1a4f03df5f10)  
 - 完成
 ![2024-05-02_143636](https://github.com/rokki-wksh/setup-VSCode-DevContainer/assets/78457029/f1357549-fca5-4155-a657-6cf04827b2ed)  
+
+## 追加対応
+
+### 拡張機能のバージョンを指定してインストールするには？
+
+[【VsCode】Unity＆C#を効率よく開発するための拡張機能のすゝめ](https://zenn.dev/tmb/articles/1444e0a85543e5) によると  
+その時点では C# のバージョンは`v2.14.8`が必要とのこと。  
+ここまでの手順では最新版をインストールし、`devcontainer.json` にもバージョンの記載などないのでバージョン指定が必要な場合、  
+どういう設定を記述する必要があるのか確認しておく必要があると感じた。  
+
+### 試行
+
+#### `Install Another Version`
+
+`Uninstall` しようかと思ったが `Install Another Version` があったので試してみる。  
+もしかしたらそこで指定したバージョンが設定に追記されるかもしれない。  
+![2024-05-02_163827_](https://github.com/rokki-wksh/setup-VSCode-DevContainer/assets/78457029/367e3333-608a-497d-8526-013072d59f30)  
+![2024-05-02_163815_](https://github.com/rokki-wksh/setup-VSCode-DevContainer/assets/78457029/301c5966-315a-4feb-a946-20ba03193ed2)  
+
+`devcontainer.json` が変更されなかったのでこれは違ってそう。  
+-> `Rebuild Container` をしたら最新版に戻ってしまった。  
+
+#### インストール時に何か指定できるか
+
+一旦アンインストールして、インストール時に選択できる箇所があるか確認する。  
+-> 無さそう。
+
+#### `` を編集してバージョン指定を付与できるか
+
+[.devcontainer.json で拡張機能のバージョンを指定する機能](https://github.com/microsoft/vscode-remote-release/issues/3253)  
+拡張機能の末尾に`@バージョン番号`でできそう？  
+試しに `@2.14.8` をつけてリビルドしてみる。  
+![2024-05-02_170552](https://github.com/rokki-wksh/setup-VSCode-DevContainer/assets/78457029/fdfd2045-e119-4218-b4bb-a99aa3341af0)  
+
+-> できた！  
+![2024-05-02_170754](https://github.com/rokki-wksh/setup-VSCode-DevContainer/assets/78457029/8bf0c517-3a3f-42de-8cfc-908e81059511)  
+
+### 感想
+
+構築時点の最新版をインストールするとしても、ビルドするタイミングによってインストールされるバージョンが異なるのは  
+今回やりたいことから外れてしまっている。環境依存を避けたいという目的の中にはバージョン差異によって生じる種々の事象が  
+発生するのを避けたい意図も含む。  
+そうなると本日実施した手順では最新版を入れてそのままの `devcontainer.json` の記述にしてあるのがほとんどだが、  
+全て`@バージョン番号`を付与する必要がある。  
