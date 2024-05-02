@@ -3,7 +3,19 @@
 {
 	"name": "Alpine",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:alpine-3.19"
+	"image": "mcr.microsoft.com/devcontainers/base:alpine-3.19",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"jorgeserrano.vscode-csharp-snippets",
+				"ms-dotnettools.csharp",
+				"k--kato.docomment",
+				"kleber-swf.unity-code-snippets",
+				"shardulm94.trailing-spaces",
+				"eamodio.gitlens"
+			]
+		}
+	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
